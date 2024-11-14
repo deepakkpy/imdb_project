@@ -109,6 +109,8 @@ You can test the APIs using Postman or through automated tests.
 1. Using Postman (Manual Testing)
    
     Postman Collection: Download and import the Postman collection for easy API testing. You can export your collection from Postman and share the .json file or provide the link to your collection.
+(https://api.postman.com/collections/39690690-d450603f-cf7b-4522-85e5-a6d2a6418793?access_key=PMAT-01JCN6G1GBYWGGSY587X11HAN5)
+
 
 *Example POST request to /api/upload/:
       Method: POST
@@ -126,25 +128,25 @@ You can write integration tests for your API endpoints using Django’s TestCase
 
 
 
-    from rest_framework.test import APITestCase
-    from rest_framework import status
-    from django.urls import reverse
+        from rest_framework.test import APITestCase
+        from rest_framework import status
+        from django.urls import reverse
+        
+        class MovieAPITestCase(APITestCase):
     
-    class MovieAPITestCase(APITestCase):
-    
-        def test_upload_csv(self):
-            # Upload a sample CSV file
-            with open('movies_data_assignment.csv', 'rb') as file:
-                response = self.client.post(reverse('movie-upload'), {'file': file})
-                self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-    
-        def test_get_movies(self):
-            response = self.client.get(reverse('movie-list'), {'page': 1, 'sort_by': 'release_date'})
-            self.assertEqual(response.status_code, status.HTTP_200_OK)
-    
-        def test_filter_by_language(self):
-            response = self.client.get(reverse('movie-list'), {'language': 'en'})
-            self.assertEqual(response.status_code, status.HTTP_200_OK)
+                def test_upload_csv(self):
+                    # Upload a sample CSV file
+                    with open('movies_data_assignment.csv', 'rb') as file:
+                        response = self.client.post(reverse('movie-upload'), {'file': file})
+                        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            
+                def test_get_movies(self):
+                    response = self.client.get(reverse('movie-list'), {'page': 1, 'sort_by': 'release_date'})
+                    self.assertEqual(response.status_code, status.HTTP_200_OK)
+            
+                def test_filter_by_language(self):
+                    response = self.client.get(reverse('movie-list'), {'language': 'en'})
+                    self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 Run the tests using:
 
